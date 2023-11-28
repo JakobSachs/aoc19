@@ -46,5 +46,5 @@ int main() {
   }
   SOL("Part 2: %llu\n", fuel_needed_true);
 
-  return 1;
+  return 0;
 }
