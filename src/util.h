@@ -11,10 +11,18 @@
 // Macros and constants
 #define DBG(...)                                                               \
   do {                                                                         \
-    fprintf(stderr, "\x1B[31m[Dbg] ");                                         \
+    fprintf(stderr, "\x1B[31m[Dbg]\t");                                        \
     fprintf(stderr, __VA_ARGS__);                                              \
     fprintf(stderr, "\x1B[0m");                                                \
   } while (0)
+
+#define SOL(...)                                                               \
+  do {                                                                         \
+    fprintf(stderr, "\e[1;34m[Solution]\t");                                   \
+    fprintf(stderr, __VA_ARGS__);                                              \
+    fprintf(stderr, "\x1B[0m");                                                \
+  } while (0)
+
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
 
 // Nice to have functions
@@ -26,7 +34,7 @@ void print_array(int *array, int size) {
   printf("\n");
 }
 
-char *read_file(char *filename) {
+char *read_file(const char *filename) {
   FILE *file = fopen(filename, "r");
   if (file == NULL) {
     DBG("Could not open file %s\n", filename);
@@ -42,14 +50,21 @@ char *read_file(char *filename) {
   return buffer;
 }
 
-char **split_string(char *string, char *delimiter, uint64_t *size) {
-  char **result = NULL;
+char **split_string(char *string, const char *delimiter, uint64_t *size) {
+  uint64_t initial_cap = 10;
+  char **tokens = malloc(initial_cap * sizeof(char *));
+
+  *size = 0;
   char *token = strtok(string, delimiter);
   while (token != NULL) {
-    result = realloc(result, (*size + 1) * sizeof(char *));
-    result[*size] = token;
+    if (*size >= initial_cap) {
+      initial_cap *= 2;
+      tokens = realloc(tokens, initial_cap * sizeof(char *));
+    }
+    tokens[*size] = token;
     (*size)++;
     token = strtok(NULL, delimiter);
   }
-  return result;
+
+  return tokens;
 }
