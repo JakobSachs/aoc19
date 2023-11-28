@@ -13,26 +13,19 @@
   do {                                                                         \
     fprintf(stderr, "\x1B[31m[Dbg]\t");                                        \
     fprintf(stderr, __VA_ARGS__);                                              \
-    fprintf(stderr, "\x1B[0m");                                                \
+    fprintf(stderr, "\x1B[0m\n");                                              \
   } while (0)
 
 #define SOL(...)                                                               \
   do {                                                                         \
     fprintf(stderr, "\e[1;34m[Solution]\t");                                   \
     fprintf(stderr, __VA_ARGS__);                                              \
-    fprintf(stderr, "\x1B[0m");                                                \
+    fprintf(stderr, "\x1B[0m\n");                                              \
   } while (0)
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
 
 // Nice to have functions
-
-void print_array(int *array, int size) {
-  for (int i = 0; i < size; i++) {
-    printf("%d ", array[i]);
-  }
-  printf("\n");
-}
 
 char *read_file(const char *filename) {
   FILE *file = fopen(filename, "r");

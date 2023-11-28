@@ -2,6 +2,7 @@
 *
 !*/
 !*.*
+!src/Makefile
 
 src/compile_commands.json
 src/.cache/*
