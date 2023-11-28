@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -std=c11 -0g
+CFLAGS := -Wall -Wextra -std=c11 -Og
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.o)
 EXES := $(SRCS:.c=)
